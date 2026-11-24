@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maqueta UNO Santa Fe</title>
+<meta name="description" content="Una Nueva Oportunidad, Santa Fe. Construimos juntos el futuro de Santa Fe.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23d4148c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noche:#06143a;      /* fondo de portada */
+  --azul:#0f3fa6;       /* círculo O */
+  --cielo:#62b5ee;      /* círculo N */
+  --magenta:#d4148c;    /* círculo U y "Santa Fe" */
+  --tinta:#0c1730;
+  --gris:#4a556e;
+  --papel:#ffffff;
+  --bruma:#eef3fa;
+  --linea:#d5deec;
+  --disp:'Archivo',system-ui,sans-serif;
+  --txt:'Public Sans',system-ui,sans-serif;
+  --pad:clamp(16px,4vw,48px);
+  --max:1180px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--papel);color:var(--tinta);font:400 17px/1.6 var(--txt);-webkit-font-smoothing:antialiased}
+img,video,canvas{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--disp);margin:0;line-height:1.02;letter-spacing:-.02em}
+h2{font-size:clamp(34px,5.4vw,64px);font-weight:800;font-stretch:112%}
+h3{font-size:22px;font-weight:700;line-height:1.2;letter-spacing:-.01em}
+p{margin:0}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--pad)}
+:focus-visible{outline:3px solid var(--cielo);outline-offset:3px;border-radius:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border:2px solid transparent;border-radius:999px;font:700 16px/1 var(--txt);text-decoration:none;cursor:pointer;transition:transform .2s var(--ease),background .2s,color .2s,border-color .2s}
+.btn:active{transform:scale(.97)}
+.btn-mag{background:var(--magenta);color:#fff}
+.btn-mag:hover{background:#b30f76}
+.btn-line{border-color:rgba(255,255,255,.55);color:#fff;background:transparent}
+.btn-line:hover{background:#fff;color:var(--noche);border-color:#fff}
+.btn-azul{background:var(--azul);color:#fff}
+.btn-azul:hover{background:#0b3186}
+.btn-claro{border-color:var(--linea);background:#fff;color:var(--tinta)}
+.btn-claro:hover{border-color:var(--azul);color:var(--azul)}
+.btn-chico{min-height:40px;padding:0 16px;font-size:14px}
+
+/* marca */
+.marca{display:inline-flex;align-items:center;gap:12px;text-decoration:none}
+.marca-uno{display:flex}
+.marca-uno span{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font:800 17px/1 var(--disp);margin-left:-5px}
+.marca-uno span:first-child{margin-left:0;background:var(--magenta)}
+.marca-uno span:nth-child(2){background:var(--cielo)}
+.marca-uno span:nth-child(3){background:var(--azul);box-shadow:0 0 0 1.5px rgba(255,255,255,.35)}
+.marca b{font:800 15px/1 var(--disp);font-stretch:110%;letter-spacing:.02em}
+
+/* cabecera */
+.top{position:fixed;inset:0 0 auto 0;z-index:50;color:#fff;transition:background .3s,color .3s,box-shadow .3s}
+.top-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+.top nav{display:flex;align-items:center;gap:28px}
+.top nav a.lnk{font-weight:600;font-size:15px;text-decoration:none;opacity:.9;position:relative}
+.top nav a.lnk::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .25s var(--ease)}
+.top nav a.lnk:hover::after{transform:scaleX(1)}
+.top.fija{background:rgba(255,255,255,.94);backdrop-filter:blur(10px);color:var(--tinta);box-shadow:0 1px 0 var(--linea)}
+.top.fija .marca b{color:var(--magenta)}
+@media(max-width:820px){.top nav a.lnk{display:none}}
+
+/* portada */
+.hero{position:relative;min-height:100svh;background:var(--noche);color:#fff;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;opacity:0;transition:opacity 1s}
+.hero-video.lista{opacity:1}
+.hero-velo{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(6,20,58,.55) 0%,rgba(6,20,58,.35) 40%,rgba(6,20,58,.92) 100%)}
+.hero.sin-video .hero-velo{background:none}
+#puntos{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero-in{width:100%;padding-block:120px clamp(40px,7vh,84px)}
+.hero h1{font-size:clamp(40px,7.6vw,112px);font-weight:900;font-stretch:118%;line-height:.94;letter-spacing:-.035em}
+.hero h1 span{display:block;overflow:hidden}
+.hero h1 i{display:block;font-style:normal;animation:sube .9s var(--ease) both}
+.hero h1 span:nth-child(2) i{animation-delay:.12s}
+.hero-pie{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px;margin-top:clamp(24px,4vh,44px)}
+.hero-pie p{font-size:clamp(18px,2vw,23px);max-width:30ch;line-height:1.4;animation:entra .8s .5s var(--ease) both}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px;animation:entra .8s .65s var(--ease) both}
+.play{width:22px;height:22px;border-radius:50%;background:currentColor;position:relative;flex:none}
+.play::after{content:"";position:absolute;left:8px;top:6px;border-left:8px solid var(--noche);border-block:5px solid transparent}
+.btn-line:hover .play::after{border-left-color:#fff}
+@keyframes sube{from{transform:translateY(105%)}to{transform:none}}
+@keyframes entra{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* franja */
+.franja{background:var(--magenta);color:#fff;overflow:hidden;padding:16px 0}
+.franja-pista{display:flex;gap:48px;width:max-content;animation:corre 38s linear infinite;font:800 20px/1 var(--disp);font-stretch:115%}
+.franja-pista span{display:inline-flex;align-items:center;gap:48px;white-space:nowrap}
+.franja-pista span::after{content:"";width:12px;height:12px;border-radius:50%;background:#fff}
+@keyframes corre{to{transform:translateX(-50%)}}
+
+/* secciones */
+.sec{padding-block:clamp(72px,11vw,140px)}
+.sec-bruma{background:var(--bruma)}
+.sec-noche{background:var(--noche);color:#fff}
+.sec-cab{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,5vw,80px);align-items:end;margin-bottom:clamp(36px,6vw,72px)}
+.sec-cab p{font-size:19px;color:var(--gris);max-width:46ch}
+.sec-noche .sec-cab p{color:#c5d0ea}
+@media(max-width:820px){.sec-cab{grid-template-columns:1fr}}
+
+/* quiénes somos */
+.somos{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--tinta)}
+.somos article{padding:28px 28px 8px 0;border-right:1px solid var(--linea)}
+.somos article+article{padding-left:28px}
+.somos article:last-child{border-right:0}
+.somos .bola{width:44px;height:44px;border-radius:50%;margin-bottom:22px}
+.somos article:nth-child(1) .bola{background:var(--magenta)}
+.somos article:nth-child(2) .bola{background:var(--cielo)}
+.somos article:nth-child(3) .bola{background:var(--azul)}
+.somos p{color:var(--gris);margin-top:10px}
+@media(max-width:820px){.somos{grid-template-columns:1fr}.somos article,.somos article+article{padding:24px 0;border-right:0;border-bottom:1px solid var(--linea)}}
+
+/* referentes */
+.refs{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(16px,3vw,36px);margin-top:clamp(48px,7vw,96px)}
+.ref{display:grid;grid-template-columns:minmax(110px,190px) 1fr;gap:32px;align-items:center;padding:9px}
+.ref-foto{aspect-ratio:1;border-radius:50%;background:var(--bruma);overflow:hidden;position:relative;display:grid;place-items:center;color:var(--gris);font-size:13px;text-align:center;padding:12px}
+.ref-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ref:nth-child(1) .ref-foto{box-shadow:0 0 0 5px #fff,0 0 0 9px var(--magenta)}
+.ref:nth-child(2) .ref-foto{box-shadow:0 0 0 5px #fff,0 0 0 9px var(--azul)}
+.ref small{display:block;font-weight:600;color:var(--magenta);font-size:15px;margin-bottom:6px}
+.ref:nth-child(2) small{color:var(--azul)}
+.ref p{color:var(--gris);margin-top:10px;font-size:16px}
+@media(max-width:820px){.refs{grid-template-columns:1fr}}
+
+/* actividades */
+.filtros{display:flex;gap:8px;margin-bottom:28px}
+.filtros button{min-height:42px;padding:0 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:#fff;font:600 15px/1 var(--txt);cursor:pointer;transition:background .2s,color .2s}
+.filtros button[aria-pressed=true]{background:#fff;color:var(--noche);border-color:#fff}
+.acts{list-style:none;margin:0;padding:0;border-top:1px solid rgba(255,255,255,.2)}
+.act{display:grid;grid-template-columns:120px 1fr auto;gap:clamp(16px,3vw,40px);align-items:center;padding:26px 0;border-bottom:1px solid rgba(255,255,255,.2);position:relative}
+.act::before{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--magenta);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.act:hover::before{transform:scaleX(1)}
+.act-dia{font:900 clamp(44px,5vw,64px)/.9 var(--disp);font-stretch:118%;letter-spacing:-.03em}
+.act-dia small{display:block;font:600 14px/1.3 var(--txt);letter-spacing:0;color:#c5d0ea;margin-top:8px}
+.act h3{font-size:clamp(20px,2.2vw,28px)}
+.act p{color:#c5d0ea;margin-top:6px;max-width:60ch}
+.act-lugar{font-weight:600;color:#fff;text-align:right;font-size:15px;line-height:1.35}
+.act-lugar span{display:block;color:var(--cielo);font-weight:500}
+.vacio{padding:36px 0;color:#c5d0ea}
+@media(max-width:820px){.act{grid-template-columns:84px 1fr}.act-lugar{grid-column:2;text-align:left}}
+
+/* sumate */
+.sumate{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(28px,6vw,96px);align-items:start}
+.sumate-txt p{font-size:19px;color:var(--gris);margin-top:22px;max-width:40ch}
+.tres{display:flex;margin-top:40px}
+.tres i{width:clamp(64px,9vw,112px);aspect-ratio:1;border-radius:50%;margin-left:-14px}
+.tres i:nth-child(1){background:var(--magenta);margin-left:0}
+.tres i:nth-child(2){background:var(--cielo)}
+.tres i:nth-child(3){background:var(--azul)}
+@media(max-width:820px){.sumate{grid-template-columns:1fr}.tres{display:none}}
+form.ficha{background:#fff;border-radius:10px;padding:clamp(22px,3vw,36px);border:1px solid var(--linea)}
+.fila{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:520px){.fila{grid-template-columns:1fr}}
+.campo{display:block;margin-bottom:16px}
+.campo>span,.grupo>legend{display:block;font-weight:600;font-size:15px;margin-bottom:6px;padding:0}
+.campo input,.campo select{width:100%;min-height:50px;padding:0 14px;border:1.5px solid var(--linea);border-radius:8px;font:500 16px var(--txt);color:var(--tinta);background:#fff;transition:border-color .2s,box-shadow .2s}
+.campo input:focus,.campo select:focus{outline:0;border-color:var(--azul);box-shadow:0 0 0 4px rgba(15,63,166,.14)}
+.campo input.mal{border-color:#c0182d}
+.error,.campo>span.error{color:#c0182d;font-size:14px;font-weight:500;margin:5px 0 0;display:none}
+.campo input.mal+span.error{display:block}
+.grupo{border:0;padding:0;margin:0 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{cursor:pointer}
+.chips input{position:absolute;opacity:0}
+.chips span{display:inline-flex;align-items:center;min-height:42px;padding:0 16px;border:1.5px solid var(--linea);border-radius:999px;font-weight:600;font-size:15px;transition:background .2s,color .2s,border-color .2s}
+.chips input:checked+span{background:var(--azul);border-color:var(--azul);color:#fff}
+.chips input:focus-visible+span{outline:3px solid var(--cielo);outline-offset:2px}
+.acepto{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--gris);margin-bottom:18px;line-height:1.45}
+.acepto input{width:20px;height:20px;margin-top:1px;accent-color:var(--azul);flex:none}
+.ficha .btn{width:100%}
+.listo{display:none;text-align:center;padding:24px 8px}
+.listo .ok{width:72px;height:72px;border-radius:50%;background:var(--magenta);margin:0 auto 20px;display:grid;place-items:center;animation:pop .5s var(--ease)}
+.listo .ok::after{content:"";width:26px;height:13px;border-left:4px solid #fff;border-bottom:4px solid #fff;transform:rotate(-45deg) translate(2px,-3px)}
+.listo p{color:var(--gris);margin-top:10px}
+.enviado .campos{display:none}
+.enviado .listo{display:block}
+@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+
+/* newsletter */
+.news{background:var(--azul);color:#fff;padding-block:clamp(56px,8vw,96px)}
+.news-in{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);align-items:center}
+.news h2{font-size:clamp(30px,4.2vw,50px)}
+.news p{color:#d6e2fb;margin-top:12px;max-width:40ch}
+.news form{display:flex;gap:10px;flex-wrap:wrap}
+.news input{flex:1 1 220px;min-height:54px;border-radius:999px;border:2px solid transparent;padding:0 22px;font:500 16px var(--txt)}
+.news input:focus{outline:0;border-color:var(--cielo)}
+.news .aviso{flex-basis:100%;font-size:14px;color:#d6e2fb;min-height:20px}
+@media(max-width:820px){.news-in{grid-template-columns:1fr}}
+
+/* pie */
+footer{background:var(--noche);color:#c5d0ea;padding-block:48px;font-size:15px}
+.pie{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.pie a{color:#fff}
+.pie nav{display:flex;gap:22px;flex-wrap:wrap}
+.pie-nota{margin-top:26px;padding-top:20px;border-top:1px solid rgba(255,255,255,.15);font-size:13px;max-width:80ch}
+
+/* video completo */
+dialog{border:0;padding:0;background:transparent;max-width:min(1000px,94vw);width:100%}
+dialog::backdrop{background:rgba(6,20,58,.88)}
+.cine{background:#000;aspect-ratio:16/9;border-radius:8px;overflow:hidden;display:grid;place-items:center;color:#fff;text-align:center;padding:24px}
+.cine iframe,.cine video{width:100%;height:100%;border:0}
+.cerrar{display:block;margin:0 0 10px auto;background:transparent;border:0;color:#fff;font:600 16px var(--txt);cursor:pointer;min-height:44px}
+
+/* galería del acto */
+.galeria{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(130px,17vw,230px);gap:10px}
+.galeria button{position:relative;border:0;padding:0;border-radius:6px;overflow:hidden;background:var(--bruma);color:var(--gris);font:500 14px var(--txt);cursor:pointer}
+.galeria button:nth-child(1){grid-column:span 2;grid-row:span 2}
+.galeria button:nth-child(4),.galeria button:nth-child(6){grid-column:span 2}
+.galeria img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.galeria button:hover img{transform:scale(1.05)}
+.galeria button[disabled]{cursor:default}
+@media(max-width:820px){.galeria{grid-template-columns:repeat(2,1fr);grid-auto-rows:44vw}.galeria button:nth-child(4),.galeria button:nth-child(6){grid-column:span 1}}
+.cine img{width:100%;height:100%;object-fit:contain}
+/* marca de agua UNO sobre las fotos */
+.agua{position:absolute;right:4%;bottom:5%;width:clamp(54px,16%,120px);aspect-ratio:104/40;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 104 40'%3E%3Cg font-family='Arial,sans-serif' font-weight='900' font-size='21' fill='%23fff' text-anchor='middle'%3E%3Ccircle cx='20' cy='20' r='20' fill='%23d4148c'/%3E%3Ccircle cx='52' cy='20' r='20' fill='%2362b5ee'/%3E%3Ccircle cx='84' cy='20' r='20' fill='%230f3fa6'/%3E%3Ctext x='20' y='27.5'%3EU%3C/text%3E%3Ctext x='52' y='27.5'%3EN%3C/text%3E%3Ctext x='84' y='27.5'%3EO%3C/text%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;opacity:.6;pointer-events:none}
+.cine{position:relative}
+
+/* instagram */
+.ig-cab{display:flex;flex-wrap:wrap;gap:20px;align-items:end;justify-content:space-between;margin-bottom:clamp(28px,4vw,48px)}
+.reels{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:12px;margin-inline:calc(var(--pad)*-1);padding-inline:var(--pad);scrollbar-width:thin}
+.reel{flex:0 0 clamp(190px,21vw,250px);aspect-ratio:9/16;border-radius:10px;overflow:hidden;position:relative;scroll-snap-align:start;text-decoration:none;color:#fff;display:flex;align-items:flex-end;padding:16px;font-weight:600;line-height:1.3;isolation:isolate}
+.reel:nth-child(3n+1){background:var(--magenta)}
+.reel:nth-child(3n+2){background:var(--azul)}
+.reel:nth-child(3n){background:var(--noche)}
+.reel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .6s var(--ease)}
+.reel:hover img{transform:scale(1.05)}
+.reel.con-foto::after{content:"";position:absolute;inset:40% 0 0;z-index:-1;background:linear-gradient(180deg,transparent,rgba(6,20,58,.85))}
+.reel .play{position:absolute;top:16px;right:16px;width:34px;height:34px;background:#fff}
+.reel .play::after{left:13px;top:9px;border-left:11px solid var(--noche);border-block:8px solid transparent}
+
+/* aparición al hacer scroll: solo títulos de sección */
+@media(prefers-reduced-motion:no-preference){
+  @supports(animation-timeline:view()){
+    .sec h2,.news h2{animation:titulo linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+    @keyframes titulo{from{opacity:0;transform:translateX(-36px)}to{opacity:1;transform:none}}
+  }
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ---------- panel ---------- */
+#v-panel{display:none;min-height:100vh;background:var(--bruma)}
+body.en-panel #v-sitio{display:none}
+body.en-panel #v-panel{display:block}
+.p-top{background:var(--noche);color:#fff}
+.p-top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.p-top a{color:#fff;font-weight:600;font-size:15px}
+.p-cuerpo{padding-block:32px 80px}
+.p-aviso{background:#fff;border-left:4px solid var(--magenta);padding:14px 18px;border-radius:6px;font-size:15px;margin-bottom:24px}
+.p-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.p-tabs button{min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--linea);background:#fff;font:600 15px var(--txt);color:var(--tinta);cursor:pointer}
+.p-tabs button[aria-selected=true]{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+.p-caja{background:#fff;border:1px solid var(--linea);border-radius:10px;padding:clamp(18px,3vw,28px);margin-bottom:20px}
+.p-caja h3{margin-bottom:16px}
+.p-grid{display:grid;grid-template-columns:160px 130px 1fr 1fr;gap:14px}
+@media(max-width:820px){.p-grid{grid-template-columns:1fr 1fr}}
+.p-acc{display:flex;gap:10px;flex-wrap:wrap}
+.tabla{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--linea);vertical-align:top}
+th{font-weight:700;font-size:13px;color:var(--gris);white-space:nowrap}
+td .btn{margin-right:6px}
+.p-vacio{color:var(--gris);padding:8px 0}
+</style>
+</head>
+<body>
+<div style="position:fixed;left:0;right:0;bottom:0;z-index:99;background:#0c1730;color:#fff;font:600 13px/1.3 'Public Sans',sans-serif;text-align:center;padding:8px 16px">Maqueta de diseño para revisión interna. No es el sitio oficial y no envía datos.</div>
+
+<!-- ======================= SITIO ======================= -->
+<div id="v-sitio">
+<header class="top" id="top">
+  <div class="wrap top-in">
+    <a class="marca" href="#inicio" aria-label="UNO Santa Fe, inicio">
+      <span class="marca-uno" aria-hidden="true"><span>U</span><span>N</span><span>O</span></span>
+      <b>SANTA FE</b>
+    </a>
+    <nav aria-label="Principal">
+      <a class="lnk" href="#somos">Quiénes somos</a>
+      <a class="lnk" href="#actividades">Actividades</a>
+      <a class="lnk" href="#novedades">Novedades</a>
+      <a class="btn btn-mag btn-chico" href="#sumate">Sumate</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero sin-video" id="inicio">
+  <video class="hero-video" id="hero-video" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+  <div class="hero-velo"></div>
+  <canvas id="puntos" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <h1><span><i>Somos muchos,</i></span><span><i>somos UNO.</i></span></h1>
+    <div class="hero-pie">
+      <p>Una Nueva Oportunidad. Construimos juntos el futuro de Santa Fe.</p>
+      <div class="hero-btns">
+        <a class="btn btn-mag" href="#sumate">Sumate a UNO</a>
+        <button class="btn btn-line" id="ver-acto" type="button"><span class="play" aria-hidden="true"></span>Ver el acto completo</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="franja" aria-hidden="true">
+  <div class="franja-pista" id="franja"></div>
+</div>
+
+<section class="sec" id="somos">
+  <div class="wrap">
+    <div class="sec-cab">
+      <h2>Una nueva oportunidad para Santa Fe</h2>
+      <p>[Texto de presentación del partido: quiénes son, de dónde vienen y qué proponen para la provincia. Dos o tres oraciones que nos pasa el partido.]</p>
+    </div>
+    <div class="somos">
+      <article><div class="bola"></div><h3>[Eje 1]</h3><p>[Una idea central del partido explicada en dos líneas.]</p></article>
+      <article><div class="bola"></div><h3>[Eje 2]</h3><p>[Una idea central del partido explicada en dos líneas.]</p></article>
+      <article><div class="bola"></div><h3>[Eje 3]</h3><p>[Una idea central del partido explicada en dos líneas.]</p></article>
+    </div>
+    <div class="refs" id="refs"></div>
+  </div>
+</section>
+
+<section class="sec" id="encuentro" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-cab">
+      <h2>El encuentro en fotos</h2>
+      <p id="gal-txt"></p>
+    </div>
+    <div class="galeria" id="galeria"></div>
+  </div>
+</section>
+
+<section class="sec sec-noche" id="actividades">
+  <div class="wrap">
+    <div class="sec-cab">
+      <h2>Actividades</h2>
+      <p>Encuentros, recorridas y reuniones del partido en toda la provincia.</p>
+    </div>
+    <div class="filtros" role="group" aria-label="Filtrar actividades">
+      <button type="button" id="f-prox" aria-pressed="true">Próximas</button>
+      <button type="button" id="f-ant" aria-pressed="false">Anteriores</button>
+    </div>
+    <ul class="acts" id="acts"></ul>
+  </div>
+</section>
+
+<section class="sec" id="redes">
+  <div class="wrap">
+    <div class="ig-cab">
+      <h2>UNO en Instagram</h2>
+      <a class="btn btn-azul" href="https://www.instagram.com/uno.santafe/" target="_blank" rel="noopener">Seguir a @uno.santafe</a>
+    </div>
+    <div class="reels" id="reels"></div>
+  </div>
+</section>
+
+<section class="sec sec-bruma" id="sumate">
+  <div class="wrap sumate">
+    <div class="sumate-txt">
+      <h2>Sumate a UNO</h2>
+      <p>Dejanos tus datos y nos ponemos en contacto para contarte cómo participar en tu localidad.</p>
+      <div class="tres" aria-hidden="true"><i></i><i></i><i></i></div>
+    </div>
+    <form class="ficha" id="f-sumate" novalidate>
+      <div class="campos">
+        <div class="fila">
+          <label class="campo"><span>Nombre</span><input name="nombre" autocomplete="given-name" required><span class="error">Escribí tu nombre.</span></label>
+          <label class="campo"><span>Apellido</span><input name="apellido" autocomplete="family-name" required><span class="error">Escribí tu apellido.</span></label>
+        </div>
+        <div class="fila">
+          <label class="campo"><span>Localidad</span><input name="localidad" autocomplete="address-level2" required><span class="error">Decinos de qué localidad sos.</span></label>
+          <label class="campo"><span>Teléfono</span><input name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="341 555 1234" required><span class="error">Escribí un teléfono con característica.</span></label>
+        </div>
+        <label class="campo"><span>Mail</span><input name="mail" type="email" autocomplete="email" required><span class="error">Revisá el mail: le falta algo.</span></label>
+        <fieldset class="grupo">
+          <legend>¿Cómo te gustaría participar?</legend>
+          <div class="chips" id="chips"></div>
+        </fieldset>
+        <label class="acepto"><input type="checkbox" name="acepto" required><span>Acepto que UNO Santa Fe use estos datos para contactarme. Puedo pedir que los borren cuando quiera.</span></label>
+        <p class="error" id="acepto-err" style="margin:-10px 0 14px">Necesitamos tu autorización para contactarte.</p>
+        <button class="btn btn-mag" type="submit">Enviar mis datos</button>
+      </div>
+      <div class="listo" role="status" aria-live="polite">
+        <div class="ok" aria-hidden="true"></div>
+        <h3 id="listo-t">Recibimos tus datos</h3>
+        <p>Nos vamos a poner en contacto con vos.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="news" id="novedades">
+  <div class="wrap news-in">
+    <div>
+      <h2>Novedades de UNO en tu mail</h2>
+      <p>Te avisamos de las próximas actividades y de lo que venimos haciendo.</p>
+    </div>
+    <form id="f-news" novalidate>
+      <label class="sr" for="n-mail">Tu mail</label>
+      <input id="n-mail" type="email" autocomplete="email" placeholder="tu@mail.com" required>
+      <button class="btn btn-mag" type="submit">Suscribirme</button>
+      <p class="aviso" id="n-aviso" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="pie">
+      <a class="marca" href="#inicio">
+        <span class="marca-uno" aria-hidden="true"><span>U</span><span>N</span><span>O</span></span>
+        <b>SANTA FE</b>
+      </a>
+      <nav aria-label="Pie">
+        <a href="https://www.instagram.com/uno.santafe/" target="_blank" rel="noopener">Instagram</a>
+        <a href="#sumate">Sumate</a>
+        <a href="#panel">Panel del partido</a>
+      </nav>
+    </div>
+    <p class="pie-nota">Una Nueva Oportunidad, Santa Fe. [Domicilio y contacto del partido.] Los datos que dejás en este sitio se usan solo para comunicarnos con vos.</p>
+  </div>
+</footer>
+
+<dialog id="cine" aria-label="Video del acto">
+  <button class="cerrar" id="cine-x" type="button">Cerrar</button>
+  <div class="cine" id="cine-in"></div>
+</dialog>
+</div>
+
+<!-- ======================= PANEL ======================= -->
+<div id="v-panel">
+  <div class="p-top"><div class="wrap">
+    <span class="marca"><span class="marca-uno" aria-hidden="true"><span>U</span><span>N</span><span>O</span></span><b>PANEL</b></span>
+    <a href="#inicio">Volver al sitio</a>
+  </div></div>
+  <div class="wrap p-cuerpo">
+    <p class="p-aviso">Demostración del panel. En el sitio definitivo se entra con usuario y contraseña, y los datos se guardan en el servidor. Acá se guardan solo en este navegador.</p>
+    <div class="p-tabs" role="tablist">
+      <button role="tab" id="t-acts" aria-selected="true">Actividades</button>
+      <button role="tab" id="t-sum" aria-selected="false">Personas que se sumaron</button>
+      <button role="tab" id="t-news" aria-selected="false">Suscriptos a novedades</button>
+    </div>
+
+    <div id="p-acts">
+      <form class="p-caja" id="f-act" novalidate>
+        <h3 id="f-act-t">Nueva actividad</h3>
+        <div class="p-grid">
+          <label class="campo"><span>Fecha</span><input type="date" name="fecha" required></label>
+          <label class="campo"><span>Hora</span><input type="time" name="hora"></label>
+          <label class="campo"><span>Título</span><input name="titulo" required></label>
+          <label class="campo"><span>Lugar</span><input name="lugar" placeholder="Club, dirección o plaza"></label>
+        </div>
+        <div class="fila">
+          <label class="campo"><span>Localidad</span><input name="localidad" required></label>
+          <label class="campo"><span>Descripción corta</span><input name="desc"></label>
+        </div>
+        <div class="p-acc">
+          <button class="btn btn-azul" type="submit" id="f-act-b">Publicar actividad</button>
+          <button class="btn btn-claro" type="button" id="f-act-c" hidden>Cancelar edición</button>
+        </div>
+      </form>
+      <div class="p-caja"><h3>Actividades publicadas</h3><div class="tabla" id="p-acts-t"></div></div>
+    </div>
+    <div id="p-sum" hidden>
+      <div class="p-caja"><h3>Personas que se sumaron</h3><div class="tabla" id="p-sum-t"></div>
+        <div class="p-acc" style="margin-top:16px"><button class="btn btn-claro btn-chico" type="button" id="x-sum">Descargar planilla</button></div></div>
+    </div>
+    <div id="p-news" hidden>
+      <div class="p-caja"><h3>Suscriptos a novedades</h3><div class="tabla" id="p-news-t"></div>
+        <div class="p-acc" style="margin-top:16px"><button class="btn btn-claro btn-chico" type="button" id="x-news">Descargar planilla</button></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   DATOS DEL SITIO: lo que se cambia sin tocar el diseño
+   ============================================================ */
+var CFG = {
+  videoLoop: '',        // recorte corto sin sonido para la portada, ej: 'video/acto-loop.mp4'
+  videoPoster: '',      // foto que se ve mientras carga el recorte
+  videoYoutube: '',     // ID de YouTube del acto completo, ej: 'dQw4w9WgXcQ'
+  franja: ['Somos muchos, somos UNO', 'Una Nueva Oportunidad', 'Construimos juntos el futuro de Santa Fe'],
+  participar: ['Militar en mi barrio', 'Fiscalizar', 'Aportar ideas', 'Difundir en redes'],
+  // Fotos del acto: { src: 'fotos/acto-1.jpg', alt: 'qué se ve en la foto' }. La primera sale grande.
+  galeriaTexto: '[Fecha y lugar del encuentro, en una línea.]',
+  fotos: [
+    { src: 'fotos/acto-1.jpg', alt: 'Cuatro dirigentes sobre el escenario, con las tribunas llenas y banderas de UNO detrás' }
+  ],
+  // Reels y publicaciones: { url: 'https://www.instagram.com/reel/...', portada: 'fotos/reel-1.jpg', titulo: 'texto corto' }
+  reels: [
+    { url: 'https://www.instagram.com/uno.santafe/reel/DgIXBzax5pH/', portada: 'fotos/reel-1.jpg', titulo: 'Así fue el encuentro' },
+    { url: 'https://www.instagram.com/uno.santafe/reel/DgGuQPbxVk8/', portada: 'fotos/reel-2.jpg', titulo: 'Encuentro de militancia' },
+    { url: 'https://www.instagram.com/uno.santafe/reel/DgGPMRgJJjk/', portada: 'fotos/reel-3.jpg', titulo: '¡Ya comenzamos! Encuentro UNO' },
+    { url: 'https://www.instagram.com/uno.santafe/reel/Df-4fApxUay/', portada: 'fotos/reel-4.jpg', titulo: 'Mensaje del 20 de noviembre' },
+    { url: 'https://www.instagram.com/uno.santafe/reel/Df8ZB7lR2VN/', portada: 'fotos/reel-5.jpg', titulo: 'Mensaje del 19 de noviembre' }
+  ],
+  referentes: [
+    { nombre: 'Walter Ghione', cargo: 'Diputado provincial', foto: 'fotos/ghione.jpg', bio: '[Presentación breve que nos pasa el partido.]' },
+    { nombre: 'Pablo "Gato" Gavira', cargo: 'Concejal de Rosario', foto: 'fotos/gavira.jpg', bio: '[Presentación breve que nos pasa el partido.]' }
+  ]
+};
+/* Actividades de arranque. Las marcadas "Ejemplo" son de relleno para la demo. */
+var ACTS_INI = [
+  { id: 'a1', fecha: '2026-11-23', hora: '', titulo: 'Encuentro de militancia UNO', lugar: '[Lugar del acto]', localidad: 'Rosario', desc: '[Resumen del acto que nos pasa el partido.]' },
+  { id: 'a2', fecha: '2026-12-05', hora: '10:00', titulo: 'Ejemplo: recorrida barrial', lugar: '[Punto de encuentro]', localidad: 'Rosario', desc: 'Actividad de ejemplo para mostrar cómo se ve la agenda.' },
+  { id: 'a3', fecha: '2026-12-12', hora: '19:00', titulo: 'Ejemplo: reunión abierta de vecinos', lugar: '[Club o vecinal]', localidad: 'Santa Fe', desc: 'Actividad de ejemplo para mostrar cómo se ve la agenda.' },
+  { id: 'a4', fecha: '2026-12-19', hora: '18:30', titulo: 'Ejemplo: encuentro regional', lugar: '[Salón]', localidad: 'Rafaela', desc: 'Actividad de ejemplo para mostrar cómo se ve la agenda.' }
+];
+
+/* ---------- utilidades ---------- */
+var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function leer(k, def){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch(e){ return def; } }
+function guardar(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+function hoyIso(){ var d = new Date(); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
+function fechaObj(iso){ var p = iso.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+var acts = leer('uno_acts', null) || ACTS_INI.slice();
+var sumados = leer('uno_sumate', []);
+var suscriptos = leer('uno_news', []);
+
+/* ---------- portada: puntos que se juntan en U N O ---------- */
+(function(){
+  var cv = $('puntos'), cx = cv.getContext('2d'), W, H, dpr, pts = [], discos = [], t0 = 0, DUR = 2600;
+  var COL = ['#d4148c', '#62b5ee', '#0f3fa6'], LET = ['U','N','O'];
+  function medir(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr,0,0,dpr,0,0);
+    var ancho = W >= 900;
+    var r = ancho ? Math.min(W * .07, H * .13) : Math.min(W * .15, H * .1);
+    var paso = r * 1.72, margen = Math.max(24, (W - 1180) / 2 + 48);
+    var cxm = ancho ? W - margen - paso - r : W * .5, cy = ancho ? H * .3 : H * .25;
+    discos = [0,1,2].map(function(i){ return { x: cxm + (i-1)*paso, y: cy, r: r }; });
+  }
+  function crear(){
+    pts = [];
+    var n = W >= 900 ? 540 : 300;
+    for (var i = 0; i < n; i++){
+      var k = i % 3, a = Math.random()*6.283, q = Math.sqrt(Math.random());
+      pts.push({ k: k, x0: Math.random()*W, y0: Math.random()*H, a: a, q: q, s: 1.4 + Math.random()*2.6, d: Math.random()*.35, f: Math.random()*6.283 });
+    }
+  }
+  function ease(x){ return x < 0 ? 0 : x > 1 ? 1 : 1 - Math.pow(1-x, 4); }
+  function dibujar(now){
+    if (!t0) t0 = now;
+    var p = REDUCE ? 1.2 : (now - t0) / DUR;
+    cx.clearRect(0,0,W,H);
+    var solido = ease((p - .78) / .35);
+    for (var i = 0; i < pts.length; i++){
+      var o = pts[i], d = discos[o.k], e = ease((p - o.d) / .65);
+      var tx = d.x + Math.cos(o.a) * o.q * d.r, ty = d.y + Math.sin(o.a) * o.q * d.r;
+      var lib = REDUCE ? 0 : Math.sin(now/1400 + o.f) * 5;
+      var x = o.x0 + (tx - o.x0) * e + lib * (1-e*.6), y = o.y0 + (ty - o.y0) * e + Math.cos(now/1700 + o.f) * (REDUCE?0:4);
+      cx.globalAlpha = (.35 + .65*e) * (1 - solido*.75);
+      cx.fillStyle = COL[o.k];
+      cx.beginPath(); cx.arc(x, y, o.s, 0, 6.283); cx.fill();
+    }
+    if (solido > 0){
+      for (var j = 0; j < 3; j++){
+        var c = discos[j];
+        cx.globalAlpha = solido;
+        cx.fillStyle = COL[j];
+        cx.beginPath(); cx.arc(c.x, c.y, c.r * (.9 + .1*solido), 0, 6.283); cx.fill();
+        cx.fillStyle = '#fff';
+        cx.font = '900 ' + Math.round(c.r * 1.02) + 'px Archivo, sans-serif';
+        cx.textAlign = 'center'; cx.textBaseline = 'middle';
+        cx.fillText(LET[j], c.x, c.y + c.r * .05);
+      }
+    }
+    cx.globalAlpha = 1;
+    if (!REDUCE && document.body.className.indexOf('en-panel') < 0) requestAnimationFrame(dibujar);
+  }
+  window.unoPuntos = function(){ t0 = 0; medir(); crear(); requestAnimationFrame(dibujar); };
+  var rz;
+  window.addEventListener('resize', function(){ clearTimeout(rz); rz = setTimeout(function(){ var w = W; medir(); if (Math.abs(w - W) > 40) crear(); if (REDUCE) requestAnimationFrame(dibujar); }, 150); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(window.unoPuntos); else window.unoPuntos();
+})();
+
+/* ---------- portada: video ---------- */
+(function(){
+  var v = $('hero-video');
+  if (CFG.videoLoop){
+    if (CFG.videoPoster) v.poster = CFG.videoPoster;
+    v.src = CFG.videoLoop;
+    v.oncanplay = function(){ v.className += ' lista'; $('inicio').className = 'hero'; if (!REDUCE) v.play(); };
+  }
+  var dlg = $('cine'), caja = $('cine-in');
+  $('ver-acto').onclick = function(){
+    if (CFG.videoYoutube) caja.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + esc(CFG.videoYoutube) + '?autoplay=1&rel=0" title="Video del acto" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
+    else caja.innerHTML = '<p>Acá se va a ver el video completo del acto, con sonido.<br>Falta cargar el enlace del video.</p>';
+    dlg.showModal();
+  };
+  function cerrar(){ dlg.close(); }
+  $('cine-x').onclick = cerrar;
+  dlg.onclick = function(e){ if (e.target === dlg) cerrar(); };
+  dlg.onclose = function(){ caja.innerHTML = ''; };
+})();
+
+/* ---------- franja y cabecera ---------- */
+(function(){
+  var h = '';
+  for (var r = 0; r < 4; r++) CFG.franja.forEach(function(t){ h += '<span>' + esc(t) + '</span>'; });
+  $('franja').innerHTML = h;
+  var top = $('top');
+  function f(){ top.className = 'top' + (window.scrollY > window.innerHeight * .7 ? ' fija' : ''); }
+  window.addEventListener('scroll', f, { passive: true }); f();
+})();
+
+/* ---------- referentes ---------- */
+$('refs').innerHTML = CFG.referentes.map(function(r){
+  return '<article class="ref"><div class="ref-foto">' + (r.foto ? '<img src="' + esc(r.foto) + '" alt="' + esc(r.nombre) + '">' : 'Foto de ' + esc(r.nombre)) + '</div>' +
+    '<div><small>' + esc(r.cargo) + '</small><h3>' + esc(r.nombre) + '</h3><p>' + esc(r.bio) + '</p></div></article>';
+}).join('');
+
+/* ---------- galería y reels ---------- */
+(function(){
+  $('gal-txt').textContent = CFG.galeriaTexto;
+  var g = $('galeria'), h = '', i;
+  CFG.fotos.forEach(function(f, n){ h += '<button type="button" data-n="' + n + '" aria-label="Ampliar foto: ' + esc(f.alt) + '"><img src="' + esc(f.src) + '" alt="' + esc(f.alt) + '" loading="lazy"><span class="agua" aria-hidden="true"></span></button>'; });
+  for (i = CFG.fotos.length + 1; i <= 6; i++) h += '<button type="button" disabled>Foto ' + i + ' del acto</button>';
+  g.innerHTML = h;
+  g.onclick = function(e){
+    var b = e.target.closest('button[data-n]'); if (!b) return;
+    var f = CFG.fotos[+b.dataset.n];
+    $('cine-in').innerHTML = '<img src="' + esc(f.src) + '" alt="' + esc(f.alt) + '"><span class="agua" aria-hidden="true"></span>';
+    $('cine').showModal();
+  };
+  var r = '';
+  if (CFG.reels.length) CFG.reels.forEach(function(x){ r += '<a class="reel' + (x.portada ? ' con-foto' : '') + '" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + (x.portada ? '<img src="' + esc(x.portada) + '" alt="" loading="lazy">' : '') + '<span class="play" aria-hidden="true"></span><span>' + esc(x.titulo) + '</span></a>'; });
+  else for (i = 1; i <= 5; i++) r += '<a class="reel" href="https://www.instagram.com/uno.santafe/" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span>[Reel ' + i + ']</span></a>';
+  $('reels').innerHTML = r;
+})();
+
+/* ---------- actividades (sitio) ---------- */
+var verProx = true;
+function actsRender(){
+  var hoy = hoyIso();
+  var l = acts.filter(function(a){ return verProx ? a.fecha >= hoy : a.fecha < hoy; });
+  l.sort(function(a, b){ return verProx ? (a.fecha > b.fecha ? 1 : -1) : (a.fecha < b.fecha ? 1 : -1); });
+  $('f-prox').setAttribute('aria-pressed', verProx); $('f-ant').setAttribute('aria-pressed', !verProx);
+  if (!l.length){
+    $('acts').innerHTML = '<li class="vacio">' + (verProx ? 'Todavía no hay actividades programadas. Suscribite a las novedades y te avisamos.' : 'Todavía no hay actividades anteriores cargadas.') + '</li>';
+    return;
+  }
+  $('acts').innerHTML = l.map(function(a){
+    var d = fechaObj(a.fecha);
+    return '<li class="act"><div class="act-dia">' + d.getDate() + '<small>' + MESES[d.getMonth()] + '<br>' + DIAS[d.getDay()] + (a.hora ? ', ' + esc(a.hora) + ' h' : '') + '</small></div>' +
+      '<div><h3>' + esc(a.titulo) + '</h3>' + (a.desc ? '<p>' + esc(a.desc) + '</p>' : '') + '</div>' +
+      '<div class="act-lugar">' + esc(a.localidad) + (a.lugar ? '<span>' + esc(a.lugar) + '</span>' : '') + '</div></li>';
+  }).join('');
+}
+function actsCambiar(prox){
+  verProx = prox;
+  if (document.startViewTransition && !REDUCE) document.startViewTransition(actsRender); else actsRender();
+}
+$('f-prox').onclick = function(){ actsCambiar(true); };
+$('f-ant').onclick = function(){ actsCambiar(false); };
+actsRender();
+
+/* ---------- sumate ---------- */
+(function(){
+  $('chips').innerHTML = CFG.participar.map(function(p){ return '<label><input type="checkbox" name="part" value="' + esc(p) + '"><span>' + esc(p) + '</span></label>'; }).join('');
+  var f = $('f-sumate');
+  function revisar(inp){
+    var ok = inp.value.trim() !== '' && inp.checkValidity();
+    if (ok && inp.name === 'telefono') ok = inp.value.replace(/\D/g, '').length >= 8;
+    inp.classList.toggle('mal', !ok); return ok;
+  }
+  ['nombre','apellido','localidad','telefono','mail'].forEach(function(n){ f.elements[n].onblur = function(){ revisar(this); }; });
+  f.onsubmit = function(e){
+    e.preventDefault();
+    var bien = true, primero = null;
+    ['nombre','apellido','localidad','telefono','mail'].forEach(function(n){ if (!revisar(f.elements[n])){ bien = false; primero = primero || f.elements[n]; } });
+    var ac = f.elements.acepto.checked;
+    $('acepto-err').style.display = ac ? 'none' : 'block';
+    if (!ac){ bien = false; primero = primero || f.elements.acepto; }
+    if (!bien){ primero.focus(); return; }
+    var part = [].slice.call(f.querySelectorAll('[name=part]:checked')).map(function(c){ return c.value; });
+    sumados.push({ fecha: hoyIso(), nombre: f.elements.nombre.value.trim(), apellido: f.elements.apellido.value.trim(), localidad: f.elements.localidad.value.trim(), telefono: f.elements.telefono.value.trim(), mail: f.elements.mail.value.trim(), participar: part.join(', ') });
+    guardar('uno_sumate', sumados);
+    $('listo-t').textContent = 'Recibimos tus datos, ' + f.elements.nombre.value.trim();
+    f.classList.add('enviado');
+  };
+})();
+
+/* ---------- newsletter ---------- */
+$('f-news').onsubmit = function(e){
+  e.preventDefault();
+  var i = $('n-mail'), av = $('n-aviso'), m = i.value.trim().toLowerCase();
+  if (!m || !i.checkValidity()){ av.textContent = 'Revisá el mail: le falta algo.'; i.focus(); return; }
+  if (suscriptos.some(function(s){ return s.mail === m; })){ av.textContent = 'Ese mail ya está suscripto.'; return; }
+  suscriptos.push({ fecha: hoyIso(), mail: m }); guardar('uno_news', suscriptos);
+  i.value = ''; av.textContent = 'Listo, te suscribiste a las novedades de UNO.';
+};
+
+/* ---------- panel ---------- */
+var editando = null;
+function tabla(cols, filas, vacio){
+  if (!filas.length) return '<p class="p-vacio">' + vacio + '</p>';
+  return '<table><thead><tr>' + cols.map(function(c){ return '<th>' + c + '</th>'; }).join('') + '</tr></thead><tbody>' + filas.join('') + '</tbody></table>';
+}
+function panelRender(){
+  var l = acts.slice().sort(function(a, b){ return a.fecha < b.fecha ? 1 : -1; });
+  $('p-acts-t').innerHTML = tabla(['Fecha','Título','Localidad','Lugar',''], l.map(function(a){
+    var d = fechaObj(a.fecha);
+    return '<tr><td>' + d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + (a.hora ? ' ' + esc(a.hora) : '') + '</td><td>' + esc(a.titulo) + '</td><td>' + esc(a.localidad) + '</td><td>' + esc(a.lugar) + '</td>' +
+      '<td><button class="btn btn-claro btn-chico" data-ed="' + esc(a.id) + '">Editar</button><button class="btn btn-claro btn-chico" data-bo="' + esc(a.id) + '">Borrar</button></td></tr>';
+  }), 'No hay actividades publicadas.');
+  $('p-sum-t').innerHTML = tabla(['Fecha','Nombre','Localidad','Teléfono','Mail','Quiere'], sumados.map(function(s){
+    return '<tr><td>' + esc(s.fecha) + '</td><td>' + esc(s.nombre + ' ' + s.apellido) + '</td><td>' + esc(s.localidad) + '</td><td>' + esc(s.telefono) + '</td><td>' + esc(s.mail) + '</td><td>' + esc(s.participar) + '</td></tr>';
+  }), 'Todavía no se sumó nadie. Completá el formulario del sitio y aparece acá.');
+  $('p-news-t').innerHTML = tabla(['Fecha','Mail'], suscriptos.map(function(s){ return '<tr><td>' + esc(s.fecha) + '</td><td>' + esc(s.mail) + '</td></tr>'; }), 'Todavía no hay suscriptos.');
+}
+function actEditar(id){
+  var f = $('f-act'), a = null;
+  acts.forEach(function(x){ if (x.id === id) a = x; });
+  editando = a ? id : null;
+  ['fecha','hora','titulo','lugar','localidad','desc'].forEach(function(n){ f.elements[n].value = a ? (a[n] || '') : ''; });
+  $('f-act-t').textContent = a ? 'Editar actividad' : 'Nueva actividad';
+  $('f-act-b').textContent = a ? 'Guardar cambios' : 'Publicar actividad';
+  $('f-act-c').hidden = !a;
+  if (a) f.scrollIntoView({ block: 'start' });
+}
+$('f-act').onsubmit = function(e){
+  e.preventDefault();
+  var f = this, falta = null;
+  ['fecha','titulo','localidad'].forEach(function(n){ var m = !f.elements[n].value.trim(); f.elements[n].classList.toggle('mal', m); if (m && !falta) falta = f.elements[n]; });
+  if (falta){ falta.focus(); return; }
+  var a = { id: editando || 'a' + Date.now() };
+  ['fecha','hora','titulo','lugar','localidad','desc'].forEach(function(n){ a[n] = f.elements[n].value.trim(); });
+  if (editando) acts = acts.map(function(x){ return x.id === editando ? a : x; }); else acts.push(a);
+  guardar('uno_acts', acts); actEditar(null); panelRender(); actsRender();
+};
+$('f-act-c').onclick = function(){ actEditar(null); };
+$('p-acts-t').onclick = function(e){
+  var b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.ed) actEditar(b.dataset.ed);
+  if (b.dataset.bo){
+    if (b.dataset.seguro){ acts = acts.filter(function(x){ return x.id !== b.dataset.bo; }); guardar('uno_acts', acts); panelRender(); actsRender(); }
+    else { b.dataset.seguro = '1'; b.textContent = 'Confirmar borrado'; }
+  }
+};
+function csv(nombre, cols, filas){
+  var t = [cols.join(';')].concat(filas.map(function(f){ return cols.map(function(c){ return '"' + String(f[c] || '').replace(/"/g, '""') + '"'; }).join(';'); })).join('\r\n');
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['﻿' + t], { type: 'text/csv' })); a.download = nombre; a.click();
+}
+$('x-sum').onclick = function(){ csv('uno-sumate.csv', ['fecha','nombre','apellido','localidad','telefono','mail','participar'], sumados); };
+$('x-news').onclick = function(){ csv('uno-novedades.csv', ['fecha','mail'], suscriptos); };
+[['t-acts','p-acts'],['t-sum','p-sum'],['t-news','p-news']].forEach(function(par, i, todos){
+  $(par[0]).onclick = function(){ todos.forEach(function(o){ $(o[0]).setAttribute('aria-selected', o === par); $(o[1]).hidden = o !== par; }); };
+});
+
+/* ---------- ruta: sitio / panel ---------- */
+function ruta(){
+  var p = location.hash === '#panel', era = document.body.classList.contains('en-panel');
+  if (p === era) return;
+  function ir(){ document.body.classList.toggle('en-panel', p); if (p){ panelRender(); window.scrollTo(0, 0); } else window.unoPuntos(); }
+  if (document.startViewTransition && !REDUCE) document.startViewTransition(ir); else ir();
+}
+window.addEventListener('hashchange', ruta); ruta();
+</script>
+</body>
+</html>

@@ -523,6 +523,8 @@ var ACTS_INI = [
 var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 function $(id){ return document.getElementById(id); }
+var VER = '1795541626';
+function arch(u){ return esc(u) + (VER ? '?v=' + VER : ''); }
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function leer(k, def){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch(e){ return def; } }
 function guardar(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
@@ -624,7 +626,7 @@ var suscriptos = leer('uno_news', []);
 
 /* ---------- referentes ---------- */
 $('refs').innerHTML = CFG.referentes.map(function(r){
-  return '<article class="ref"><div class="ref-foto">' + (r.foto ? '<img src="' + esc(r.foto) + '" alt="' + esc(r.nombre) + '">' : 'Foto de ' + esc(r.nombre)) + '</div>' +
+  return '<article class="ref"><div class="ref-foto">' + (r.foto ? '<img src="' + arch(r.foto) + '" alt="' + esc(r.nombre) + '">' : 'Foto de ' + esc(r.nombre)) + '</div>' +
     '<div><small>' + esc(r.cargo) + '</small><h3>' + esc(r.nombre) + '</h3><p>' + esc(r.bio) + '</p></div></article>';
 }).join('');
 
@@ -632,17 +634,17 @@ $('refs').innerHTML = CFG.referentes.map(function(r){
 (function(){
   $('gal-txt').textContent = CFG.galeriaTexto;
   var g = $('galeria'), h = '', i;
-  CFG.fotos.forEach(function(f, n){ h += '<button type="button" data-n="' + n + '" aria-label="Ampliar foto: ' + esc(f.alt) + '"><img src="' + esc(f.src) + '" alt="' + esc(f.alt) + '" loading="lazy"><span class="agua" aria-hidden="true"></span></button>'; });
+  CFG.fotos.forEach(function(f, n){ h += '<button type="button" data-n="' + n + '" aria-label="Ampliar foto: ' + esc(f.alt) + '"><img src="' + arch(f.src) + '" alt="' + esc(f.alt) + '" loading="lazy"><span class="agua" aria-hidden="true"></span></button>'; });
   for (i = CFG.fotos.length + 1; i <= 6; i++) h += '<button type="button" disabled>Foto ' + i + ' del acto</button>';
   g.innerHTML = h;
   g.onclick = function(e){
     var b = e.target.closest('button[data-n]'); if (!b) return;
     var f = CFG.fotos[+b.dataset.n];
-    $('cine-in').innerHTML = '<img src="' + esc(f.src) + '" alt="' + esc(f.alt) + '"><span class="agua" aria-hidden="true"></span>';
+    $('cine-in').innerHTML = '<img src="' + arch(f.src) + '" alt="' + esc(f.alt) + '"><span class="agua" aria-hidden="true"></span>';
     $('cine').showModal();
   };
   var r = '';
-  if (CFG.reels.length) CFG.reels.forEach(function(x){ r += '<a class="reel' + (x.portada ? ' con-foto' : '') + '" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + (x.portada ? '<img src="' + esc(x.portada) + '" alt="" loading="lazy">' : '') + '<span class="play" aria-hidden="true"></span><span>' + esc(x.titulo) + '</span></a>'; });
+  if (CFG.reels.length) CFG.reels.forEach(function(x){ r += '<a class="reel' + (x.portada ? ' con-foto' : '') + '" href="' + esc(x.url) + '" target="_blank" rel="noopener">' + (x.portada ? '<img src="' + arch(x.portada) + '" alt="" loading="lazy">' : '') + '<span class="play" aria-hidden="true"></span><span>' + esc(x.titulo) + '</span></a>'; });
   else for (i = 1; i <= 5; i++) r += '<a class="reel" href="https://www.instagram.com/uno.santafe/" target="_blank" rel="noopener"><span class="play" aria-hidden="true"></span><span>[Reel ' + i + ']</span></a>';
   $('reels').innerHTML = r;
 })();

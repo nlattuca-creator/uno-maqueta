@@ -151,6 +151,8 @@ p{margin:0}
 @media(max-width:820px){.refs{grid-template-columns:1fr}}
 
 /* actividades */
+body.sin-acts .lnk[href="#actividades"]{display:none}
+body.sin-acts #prensa{padding-top:0}
 .filtros{display:flex;gap:8px;margin-bottom:28px}
 .filtros button{min-height:42px;padding:0 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.3);background:transparent;color:#fff;font:600 15px/1 var(--txt);cursor:pointer;transition:background .2s,color .2s}
 .filtros button[aria-pressed=true]{background:#fff;color:var(--noche);border-color:#fff}
@@ -546,17 +548,14 @@ var CFG = {
 };
 /* Actividades de arranque. Las marcadas "Ejemplo" son de relleno para la demo. */
 var ACTS_INI = [
-  { id: 'a1', fecha: '2026-11-23', hora: '', titulo: 'Encuentro de militancia UNO', lugar: '[Lugar del acto]', localidad: 'Rosario', desc: '[Resumen del acto que nos pasa el partido.]' },
-  { id: 'a2', fecha: '2026-12-05', hora: '10:00', titulo: 'Ejemplo: recorrida barrial', lugar: '[Punto de encuentro]', localidad: 'Rosario', desc: 'Actividad de ejemplo para mostrar cómo se ve la agenda.' },
-  { id: 'a3', fecha: '2026-12-12', hora: '19:00', titulo: 'Ejemplo: reunión abierta de vecinos', lugar: '[Club o vecinal]', localidad: 'Santa Fe', desc: 'Actividad de ejemplo para mostrar cómo se ve la agenda.' },
-  { id: 'a4', fecha: '2026-12-19', hora: '18:30', titulo: 'Ejemplo: encuentro regional', lugar: '[Salón]', localidad: 'Rafaela', desc: 'Actividad de ejemplo para mostrar cómo se ve la agenda.' }
+  { id: 'a1', fecha: '2026-11-23', hora: '', titulo: 'Encuentro de militancia UNO', lugar: '[Lugar del acto]', localidad: 'Rosario', desc: '[Resumen del acto que nos pasa el partido.]' }
 ];
 
 /* ---------- utilidades ---------- */
 var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 function $(id){ return document.getElementById(id); }
-var VER = '1795638406';
+var VER = '1795638796';
 function arch(u){ return esc(u) + (VER ? '?v=' + VER : ''); }
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function leer(k, def){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch(e){ return def; } }
@@ -565,7 +564,7 @@ function hoyIso(){ var d = new Date(); return d.getFullYear() + '-' + ('0'+(d.ge
 function fechaObj(iso){ var p = iso.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
 var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-var acts = leer('uno_acts', null) || ACTS_INI.slice();
+var acts = leer('uno_acts2', null) || ACTS_INI.slice();
 var sumados = leer('uno_sumate', []);
 var suscriptos = leer('uno_news', []);
 
@@ -693,6 +692,10 @@ $('refs').innerHTML = CFG.referentes.map(function(r){
 var verProx = true;
 function actsRender(){
   var hoy = hoyIso();
+  /* sin fechas próximas la sección entera se oculta; vuelve sola cuando el panel carga una */
+  var hay = acts.some(function(a){ return a.fecha >= hoy; });
+  $('actividades').hidden = !hay;
+  document.body.classList.toggle('sin-acts', !hay);
   var l = acts.filter(function(a){ return verProx ? a.fecha >= hoy : a.fecha < hoy; });
   l.sort(function(a, b){ return verProx ? (a.fecha > b.fecha ? 1 : -1) : (a.fecha < b.fecha ? 1 : -1); });
   $('f-prox').setAttribute('aria-pressed', verProx); $('f-ant').setAttribute('aria-pressed', !verProx);
@@ -787,14 +790,14 @@ $('f-act').onsubmit = function(e){
   var a = { id: editando || 'a' + Date.now() };
   ['fecha','hora','titulo','lugar','localidad','desc'].forEach(function(n){ a[n] = f.elements[n].value.trim(); });
   if (editando) acts = acts.map(function(x){ return x.id === editando ? a : x; }); else acts.push(a);
-  guardar('uno_acts', acts); actEditar(null); panelRender(); actsRender();
+  guardar('uno_acts2', acts); actEditar(null); panelRender(); actsRender();
 };
 $('f-act-c').onclick = function(){ actEditar(null); };
 $('p-acts-t').onclick = function(e){
   var b = e.target.closest('button'); if (!b) return;
   if (b.dataset.ed) actEditar(b.dataset.ed);
   if (b.dataset.bo){
-    if (b.dataset.seguro){ acts = acts.filter(function(x){ return x.id !== b.dataset.bo; }); guardar('uno_acts', acts); panelRender(); actsRender(); }
+    if (b.dataset.seguro){ acts = acts.filter(function(x){ return x.id !== b.dataset.bo; }); guardar('uno_acts2', acts); panelRender(); actsRender(); }
     else { b.dataset.seguro = '1'; b.textContent = 'Confirmar borrado'; }
   }
 };

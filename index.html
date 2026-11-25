@@ -518,8 +518,9 @@ td .btn{margin-right:6px}
    DATOS DEL SITIO: lo que se cambia sin tocar el diseño
    ============================================================ */
 var CFG = {
-  videoLoop: '',        // recorte corto sin sonido para la portada, ej: 'video/acto-loop.mp4'
-  videoPoster: '',      // foto que se ve mientras carga el recorte
+  videoLoop: 'video/acto-loop.mp4',        // recorte corto sin sonido para la portada, ej: 'video/acto-loop.mp4'
+  videoPoster: 'video/acto-poster.jpg',      // foto que se ve mientras carga el recorte
+  videoCompleto: 'video/acto-completo.mp4', // archivo del video completo, si no está en YouTube
   videoYoutube: '',     // ID de YouTube del acto completo, ej: 'dQw4w9WgXcQ'
   franja: ['Somos muchos, somos UNO', 'Una Nueva Oportunidad', 'Construimos juntos el futuro de Santa Fe'],
   participar: ['Militar en mi barrio', 'Fiscalizar', 'Aportar ideas', 'Difundir en redes'],
@@ -555,7 +556,7 @@ var ACTS_INI = [
 var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 function $(id){ return document.getElementById(id); }
-var VER = '1795638796';
+var VER = '1795639771';
 function arch(u){ return esc(u) + (VER ? '?v=' + VER : ''); }
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function leer(k, def){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch(e){ return def; } }
@@ -630,13 +631,14 @@ var suscriptos = leer('uno_news', []);
 (function(){
   var v = $('hero-video');
   if (CFG.videoLoop){
-    if (CFG.videoPoster) v.poster = CFG.videoPoster;
-    v.src = CFG.videoLoop;
+    if (CFG.videoPoster) v.poster = arch(CFG.videoPoster);
+    v.src = arch(CFG.videoLoop);
     v.oncanplay = function(){ v.className += ' lista'; $('inicio').className = 'hero'; if (!REDUCE) v.play(); };
   }
   var dlg = $('cine'), caja = $('cine-in');
   $('ver-acto').onclick = function(){
     if (CFG.videoYoutube) caja.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + esc(CFG.videoYoutube) + '?autoplay=1&rel=0" title="Video del acto" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
+    else if (CFG.videoCompleto) caja.innerHTML = '<video src="' + arch(CFG.videoCompleto) + '" controls autoplay playsinline' + (CFG.videoPoster ? ' poster="' + arch(CFG.videoPoster) + '"' : '') + ' style="width:100%;height:100%;background:#000"></video>';
     else caja.innerHTML = '<p>Acá se va a ver el video completo del acto, con sonido.<br>Falta cargar el enlace del video.</p>';
     dlg.showModal();
   };

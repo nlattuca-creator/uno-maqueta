@@ -338,13 +338,13 @@ td .btn{margin-right:6px}
   <div class="wrap">
     <div class="sec-cab">
       <h2>Una nueva oportunidad para Santa Fe</h2>
-      <p>[Texto de presentación del partido: quiénes son, de dónde vienen y qué proponen para la provincia. Dos o tres oraciones que nos pasa el partido.]</p>
+      <p>Somos un partido federal que integra el frente Unidos en Santa Fe. Creemos que la política es la principal herramienta de transformación social y que se crece desde los valores. Trabajamos en los barrios y las localidades de toda la provincia, junto a referentes sociales y comunidades de fe.</p>
     </div>
     <div class="somos">
-      <article><div class="bola"></div><h3>Vida y familia</h3><p>[Qué propone UNO en este eje, en dos líneas que nos pasa el partido.]</p></article>
-      <article><div class="bola"></div><h3>Territorio</h3><p>[Qué propone UNO en este eje, en dos líneas que nos pasa el partido.]</p></article>
-      <article><div class="bola"></div><h3>Federalismo y diálogo</h3><p>[Qué propone UNO en este eje, en dos líneas que nos pasa el partido.]</p></article>
-      <article><div class="bola"></div><h3>Justicia y seguridad</h3><p>[Qué propone UNO en este eje, en dos líneas que nos pasa el partido.]</p></article>
+      <article><div class="bola"></div><h3>Vida y familia</h3><p>La vida es el primer derecho humano y la defendemos en todas sus etapas. Fortalecemos a las familias como núcleo de la sociedad, para que cada chico crezca en un entorno sano y con oportunidades.</p></article>
+      <article><div class="bola"></div><h3>Territorio</h3><p>Crecemos barrio por barrio y localidad por localidad. Queremos que cada región aproveche sus recursos para generar empleo y que todos los vecinos accedan a los servicios esenciales.</p></article>
+      <article><div class="bola"></div><h3>Federalismo y diálogo</h3><p>Todas las localidades y todas las provincias son importantes. Trabajamos en equipo, con división de poderes, transparencia y respeto por la Constitución.</p></article>
+      <article><div class="bola"></div><h3>Justicia y seguridad</h3><p>Una Justicia independiente y efectiva hace posible la paz social. Impulsamos leyes que protejan a las víctimas, aceleren los procesos y hagan cumplir las sanciones.</p></article>
     </div>
     <div class="refs" id="refs"></div>
   </div>
@@ -549,20 +549,20 @@ var CFG = {
     { url: 'https://www.instagram.com/uno.santafe/reel/Df8ZB7lR2VN/', portada: 'fotos/reel-5.jpg', titulo: 'Mensaje del 19 de noviembre' }
   ],
   referentes: [
-    { nombre: 'Walter Ghione', cargo: 'Diputado provincial', foto: 'fotos/ghione.jpg', bio: '[Presentación breve que nos pasa el partido.]' },
-    { nombre: 'Pablo "Gato" Gavira', cargo: 'Concejal de Rosario', foto: 'fotos/gavira.jpg', bio: '[Presentación breve que nos pasa el partido.]' }
+    { nombre: 'Walter Ghione', cargo: 'Diputado provincial', foto: 'fotos/ghione.jpg', bio: 'Nació en Rosario en 1982. Es pastor y está en política desde 2008. Conduce UNO, es diputado provincial desde 2019 y preside la Comisión de Derechos y Garantías de la Cámara de Diputados. Entre sus proyectos están la reforma electoral y la prohibición de los cuidacoches en la provincia.' },
+    { nombre: 'Pablo "Gato" Gavira', cargo: 'Concejal de Rosario', foto: 'fotos/gavira.jpg', bio: 'Fue periodista deportivo durante más de 30 años en la televisión y la radio de Rosario. Es el primer concejal de UNO en la ciudad, con mandato desde diciembre de 2025 hasta 2029. En el Concejo trabaja sobre la seguridad en los barrios y la prevención de las adicciones.' }
   ]
 };
 /* Actividades de arranque. Las marcadas "Ejemplo" son de relleno para la demo. */
 var ACTS_INI = [
-  { id: 'a1', fecha: '2026-11-23', hora: '', titulo: 'Encuentro de militancia UNO', lugar: 'Club Nuevo Banco Nación', localidad: 'Rosario', desc: '[Resumen del acto que nos pasa el partido.]' }
+  { id: 'a1', fecha: '2026-11-23', hora: '', titulo: 'Encuentro de militancia UNO', lugar: 'Club Nuevo Banco Nación', localidad: 'Rosario', desc: 'Más de 2.500 personas en el estadio cubierto, con la palabra de Pablo Gavira, Walter Ghione y el gobernador Maximiliano Pullaro.' }
 ];
 
 /* ---------- utilidades ---------- */
 var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 function $(id){ return document.getElementById(id); }
-var VER = '1795640509';
+var VER = '1795641011';
 function arch(u){ return esc(u) + (VER ? '?v=' + VER : ''); }
 /* si el navegador muestra una copia guardada vieja, se recarga sola con la última versión publicada */
 if (VER && window.fetch) fetch('version.txt?t=' + Date.now(), { cache: 'no-store' }).then(function(r){ return r.ok ? r.text() : ''; }).then(function(t){

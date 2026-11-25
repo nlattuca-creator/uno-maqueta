@@ -527,11 +527,11 @@ var CFG = {
   // Fotos del acto: { src: 'fotos/acto-1.jpg', alt: 'qué se ve en la foto' }. La primera sale grande.
   galeriaTexto: 'Lunes 23 de noviembre, Club Nuevo Banco Nación, Rosario.',
   fotos: [
-    { src: 'fotos/evento-142.jpg', alt: 'Vista general del estadio colmado, con el escenario circular en el centro y las tribunas llenas de banderas de UNO' },
+    { src: 'fotos/evento-029.jpg', alt: 'Orador de remera negra habla desde el escenario con las tribunas colmadas detrás' },
     { src: 'fotos/evento-013.jpg', alt: 'Orador de camisa blanca habla con el micrófono en la mano, con la tribuna detrás' },
     { src: 'fotos/evento-049.jpg', alt: 'Orador de saco claro levanta el puño frente a las tribunas llenas' },
     { src: 'fotos/evento-drone05.jpg', alt: 'Vista aérea del estadio lleno, con el escenario iluminado y globos de los colores de UNO' },
-    { src: 'fotos/evento-029.jpg', alt: 'Orador de remera negra habla desde el escenario con las tribunas colmadas detrás' },
+    { src: 'fotos/evento-142.jpg', alt: 'Vista general del estadio colmado, con el escenario circular en el centro y las tribunas llenas de banderas de UNO' },
     { src: 'fotos/evento-098.jpg', alt: 'El público sentado en la platea y las tribunas del estadio, con banderas de UNO en las barandas' },
     { src: 'fotos/evento-043.jpg', alt: 'Dos de los oradores se abrazan sobre el escenario frente al público' }
   ],
@@ -562,7 +562,7 @@ var ACTS_INI = [
 var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 function $(id){ return document.getElementById(id); }
-var VER = '1795640252';
+var VER = '1795640341';
 function arch(u){ return esc(u) + (VER ? '?v=' + VER : ''); }
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function leer(k, def){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch(e){ return def; } }

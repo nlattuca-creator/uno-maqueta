@@ -13,8 +13,8 @@
 <style>
 :root{
   --noche:#06143a;      /* fondo de portada */
-  --azul:#0f3fa6;       /* círculo O */
-  --cielo:#62b5ee;      /* círculo N */
+  --azul:#0033a0;       /* círculo O */
+  --cielo:#41b6e6;      /* círculo N */
   --magenta:#d4148c;    /* círculo U y "Santa Fe" */
   --tinta:#0c1730;
   --gris:#4a556e;
@@ -111,7 +111,7 @@ p{margin:0}
 @media(max-width:820px){.sec-cab{grid-template-columns:1fr}}
 
 /* quiénes somos */
-.somos{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--tinta)}
+.somos{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--tinta)}
 .somos article{padding:28px 28px 8px 0;border-right:1px solid var(--linea)}
 .somos article+article{padding-left:28px}
 .somos article:last-child{border-right:0}
@@ -119,6 +119,7 @@ p{margin:0}
 .somos article:nth-child(1) .bola{background:var(--magenta)}
 .somos article:nth-child(2) .bola{background:var(--cielo)}
 .somos article:nth-child(3) .bola{background:var(--azul)}
+.somos article:nth-child(4) .bola{background:#7b8494}
 .somos p{color:var(--gris);margin-top:10px}
 @media(max-width:820px){.somos{grid-template-columns:1fr}.somos article,.somos article+article{padding:24px 0;border-right:0;border-bottom:1px solid var(--linea)}}
 
@@ -166,7 +167,7 @@ form.ficha{background:#fff;border-radius:10px;padding:clamp(22px,3vw,36px);borde
 .campo{display:block;margin-bottom:16px}
 .campo>span,.grupo>legend{display:block;font-weight:600;font-size:15px;margin-bottom:6px;padding:0}
 .campo input,.campo select{width:100%;min-height:50px;padding:0 14px;border:1.5px solid var(--linea);border-radius:8px;font:500 16px var(--txt);color:var(--tinta);background:#fff;transition:border-color .2s,box-shadow .2s}
-.campo input:focus,.campo select:focus{outline:0;border-color:var(--azul);box-shadow:0 0 0 4px rgba(15,63,166,.14)}
+.campo input:focus,.campo select:focus{outline:0;border-color:var(--azul);box-shadow:0 0 0 4px rgba(0,51,160,.14)}
 .campo input.mal{border-color:#c0182d}
 .error,.campo>span.error{color:#c0182d;font-size:14px;font-weight:500;margin:5px 0 0;display:none}
 .campo input.mal+span.error{display:block}
@@ -322,9 +323,10 @@ td .btn{margin-right:6px}
       <p>[Texto de presentación del partido: quiénes son, de dónde vienen y qué proponen para la provincia. Dos o tres oraciones que nos pasa el partido.]</p>
     </div>
     <div class="somos">
-      <article><div class="bola"></div><h3>[Eje 1]</h3><p>[Una idea central del partido explicada en dos líneas.]</p></article>
-      <article><div class="bola"></div><h3>[Eje 2]</h3><p>[Una idea central del partido explicada en dos líneas.]</p></article>
-      <article><div class="bola"></div><h3>[Eje 3]</h3><p>[Una idea central del partido explicada en dos líneas.]</p></article>
+      <article><div class="bola"></div><h3>Vida y familia</h3><p>[Qué propone UNO en este eje, en dos líneas que nos pasa el partido.]</p></article>
+      <article><div class="bola"></div><h3>Territorio</h3><p>[Qué propone UNO en este eje, en dos líneas que nos pasa el partido.]</p></article>
+      <article><div class="bola"></div><h3>Federalismo y diálogo</h3><p>[Qué propone UNO en este eje, en dos líneas que nos pasa el partido.]</p></article>
+      <article><div class="bola"></div><h3>Justicia y seguridad</h3><p>[Qué propone UNO en este eje, en dos líneas que nos pasa el partido.]</p></article>
     </div>
     <div class="refs" id="refs"></div>
   </div>
@@ -383,7 +385,7 @@ td .btn{margin-right:6px}
         </div>
         <label class="campo"><span>Mail</span><input name="mail" type="email" autocomplete="email" required><span class="error">Revisá el mail: le falta algo.</span></label>
         <fieldset class="grupo">
-          <legend>¿Cómo te gustaría participar?</legend>
+          <legend>Elegí cómo querés participar</legend>
           <div class="chips" id="chips"></div>
         </fieldset>
         <label class="acepto"><input type="checkbox" name="acepto" required><span>Acepto que UNO Santa Fe use estos datos para contactarme. Puedo pedir que los borren cuando quiera.</span></label>
@@ -523,7 +525,7 @@ var ACTS_INI = [
 var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 function $(id){ return document.getElementById(id); }
-var VER = '1795541626';
+var VER = '1795637705';
 function arch(u){ return esc(u) + (VER ? '?v=' + VER : ''); }
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function leer(k, def){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch(e){ return def; } }
@@ -539,7 +541,7 @@ var suscriptos = leer('uno_news', []);
 /* ---------- portada: puntos que se juntan en U N O ---------- */
 (function(){
   var cv = $('puntos'), cx = cv.getContext('2d'), W, H, dpr, pts = [], discos = [], t0 = 0, DUR = 2600;
-  var COL = ['#d4148c', '#62b5ee', '#0f3fa6'], LET = ['U','N','O'];
+  var COL = ['#d4148c', '#41b6e6', '#0033a0'], LET = ['U','N','O'];
   function medir(){
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = cv.clientWidth; H = cv.clientHeight;

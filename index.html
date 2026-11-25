@@ -562,7 +562,7 @@ var ACTS_INI = [
 var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 function $(id){ return document.getElementById(id); }
-var VER = '1795640341';
+var VER = '1795640426';
 function arch(u){ return esc(u) + (VER ? '?v=' + VER : ''); }
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function leer(k, def){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch(e){ return def; } }
@@ -638,8 +638,13 @@ var suscriptos = leer('uno_news', []);
   var v = $('hero-video');
   if (CFG.videoLoop){
     if (CFG.videoPoster) v.poster = arch(CFG.videoPoster);
+    /* en celulares el video no empieza a cargar hasta que se le pide reproducir: se pide de entrada, sin sonido */
+    function mostrar(){ if (v.className.indexOf('lista') < 0) v.className += ' lista'; $('inicio').className = 'hero'; }
+    v.muted = true; v.defaultMuted = true; v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+    v.onloadeddata = mostrar; v.onplaying = mostrar;
+    if (CFG.videoPoster) mostrar();
     v.src = arch(CFG.videoLoop);
-    v.oncanplay = function(){ v.className += ' lista'; $('inicio').className = 'hero'; if (!REDUCE) v.play(); };
+    if (!REDUCE){ v.autoplay = true; var pr = v.play(); if (pr && pr.catch) pr.catch(function(){}); }
   }
   var dlg = $('cine'), caja = $('cine-in');
   $('ver-acto').onclick = function(){

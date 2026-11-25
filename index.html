@@ -382,7 +382,7 @@ td .btn{margin-right:6px}
   </div>
 </section>
 
-<section class="sec" id="redes">
+<section class="sec" id="redes" style="padding-top:0">
   <div class="wrap">
     <div class="ig-cab">
       <h2>UNO en Instagram</h2>
@@ -556,7 +556,7 @@ var ACTS_INI = [
 var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
 function $(id){ return document.getElementById(id); }
-var VER = '1795638042';
+var VER = '1795638406';
 function arch(u){ return esc(u) + (VER ? '?v=' + VER : ''); }
 function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function leer(k, def){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch(e){ return def; } }
